@@ -1,7 +1,8 @@
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.SQLException" %>
-<%@ page import="java.sql.Statement" %><%--
+<%@ page import="java.sql.Statement" %>
+<%@ page import="jdk.nashorn.internal.runtime.ECMAException" %><%--
   Created by IntelliJ IDEA.
   User: mmonteiro
   Date: 24/05/19
@@ -12,25 +13,37 @@
 
 <%!
     String name = "";
+    String house = "";
     Connection conexion = null;
     Statement statement = null;
+    String query = "";
+
+    String host = "localhost";
+    Integer port = 3306;
+    String bbdd = "GOT";
+    String USER_BBDD = "root";
+    String PASSWORD_BBDD = "Papymamy13";
+
 %>
 
 <%
     Class.forName("com.mysql.jdbc.Driver").newInstance();
     name = request.getParameter("name");
+
     try {
-        conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306//GOT/root/Papymamy13");
+        conexion = DriverManager.getConnection("jdbc:mysql://"
+                + host + ":"
+                + port.toString() + "/"
+                + bbdd + "?user="
+                + USER_BBDD + "&password="
+                + PASSWORD_BBDD);
+
+        statement = conexion.createStatement();
     } catch (SQLException e) {
         e.printStackTrace();
     }
 
-    try {
-        statement = conexion.createStatement();
-        statement.executeUpdate("insert into ");
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
+
 %>
 
 <html>
@@ -39,6 +52,13 @@
 </head>
 <body>
 
-    <h2><%=name%></h2>
+
+
+
+<p>
+<%=name%>
+</p>
+
+
 </body>
 </html>
