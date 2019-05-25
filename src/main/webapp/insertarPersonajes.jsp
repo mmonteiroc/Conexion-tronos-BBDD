@@ -85,7 +85,7 @@
 
     setInterval(function () {
         location.href ="llistat.jsp";
-    },3000);
+    },500);
 
 </script>
 

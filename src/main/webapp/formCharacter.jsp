@@ -61,20 +61,23 @@
 
 <html>
 <head>
-    <title>Form insertar users</title>
+    <title>Form insertar personajes/casas</title>
+    <link rel="stylesheet" href="css/general.css">
 </head>
 <body>
 
-<nav>
-    <ul>
-        <li><a href="formCharacter.jsp">Añadir Casas/Caracteres</a></li>
-        <li><a href="llistat.jsp">Listado de personajes/casas</a></li>
-    </ul>
-</nav>
+<header>
+    <nav>
+        <ul>
+            <li><a href="formCharacter.jsp">Añadir Characters</a></li>
+            <li><a href="llistat.jsp">Listado de personajes/casas</a></li>
+        </ul>
+    </nav>
+</header>
 
 
 
-<form action="insertar.jsp" method="post">
+<form action="insertarPersonajes.jsp" method="post">
     <fieldset>
         <legend>Añadir Caracter</legend>
         <label for="name">Nombre:</label>

@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+@import url('https://fonts.googleapis.com/css?family=Pathway+Gothic+One|Permanent+Marker');
+@import url('https://fonts.googleapis.com/css?family=Abel|Indie+Flower|ZCOOL+QingKe+HuangYou');
+@import url('https://fonts.googleapis.com/css?family=Abel');
+@import url(https://fonts.googleapis.com/css?family=Six+Caps);
+@import url('https://fonts.googleapis.com/css?family=Iceberg');
+
+
+/*
+    font-family: 'ZCOOL QingKe HuangYou', cursive;
+    font-family: 'Indie Flower', cursive;
+    font-family: 'Abel', sans-serif;
+    font-family: 'Permanent Marker', cursive;
+    font-family: 'Pathway Gothic One', sans-serif;
+    font-family: 'Abel', sans-serif;
+
+*/
+
+/*
+    Code made by Miguel Monteiro
+    miguelmonteiroclaveri@gmail.com
+    mmonteirocl@esliceu.net
+*/
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Abel', sans-serif;
+
+}
+
+
+/*  Header  */
+
+header {
+    background-color: #ffffff;
+    border-bottom: solid 1.5px #9e9e9e;
+
+    font-family: 'Pathway Gothic One', sans-serif;
+
+    margin-bottom: 40px;
+
+    display: flex;
+}
+header > *{
+    flex-basis: 100%;
+}
+
+header nav ul{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+
+header nav ul li {
+    color: black;
+    list-style: none;
+    margin-top: 2%;
+    margin-bottom: 2%;
+
+    border-bottom: 1.5px solid #296cff;
+    background-color: #ffffff;
+    height: 35px;
+    font-size: 25px;
+    text-align: center;
+    padding-top: 3px;
+    transition: background-color 0.3s, border-radius 1s;
+}
+
+header nav ul li:hover {
+    background-color: #f4f4f4;
+    border-radius: 10px;
+}
+
+nav ul a {
+    /*Elimina subrayado de etiqueta a*/
+    color: black;
+    text-decoration: none;
+}

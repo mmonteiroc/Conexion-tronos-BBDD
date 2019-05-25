@@ -58,17 +58,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-16">
     <title>Llistat de usuaris</title>
+    <link rel="stylesheet" href="css/general.css">
+
 </head>
 <body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="formCharacter.jsp">Añadir Characters</a></li>
+            <li><a href="llistat.jsp">Listado de personajes/casas</a></li>
+        </ul>
+    </nav>
 
-<nav>
-    <ul>
-        <li><a href="formCharacter.jsp">Añadir Characters</a></li>
-        <li><a href="llistat.jsp">Listado de personajes/casas</a></li>
-    </ul>
-</nav>
+</header>
 
 
     <%
@@ -77,7 +81,7 @@
             %>
     <h2>
     <%
-                out.println(resultSet.getString("nombre"));
+                out.println(resultSet.getString("nombre")+" - ");
 
                 out.println(resultSet.getString("casa"));
     %>
