@@ -1,7 +1,7 @@
 <%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.Statement" %>
-<%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.sql.DriverManager" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.sql.Statement" %>
 <%--
   Created by IntelliJ IDEA.
   User: mmonteiro
@@ -16,7 +16,6 @@
     Statement statement = null;
     ResultSet resultSet = null;
     String sentencia = "";
-
 
 
     // BBDD -- Variables
@@ -42,9 +41,9 @@
                 + NAME_BBDD + "?user="
                 + USER_BBDD + "&password="
                 + PASSWORD_BBDD);
-        statement  = connection.createStatement();
+        statement = connection.createStatement();
 
-        sentencia="SELECT characters.name as nombre,house.name as casa FROM characters INNER JOIN house ON characters.allegianceTo=house.id";
+        sentencia = "SELECT characters.name as nombre,house.name as casa, characters.id as personajeId FROM characters INNER JOIN house ON characters.allegianceTo=house.id";
         resultSet = statement.executeQuery(sentencia);
 
 
@@ -74,28 +73,29 @@
 
 </header>
 
+<table>
+    <tr>
+        <th>Nombre del personaje</th>
+        <th>Nombre de la Casa</th>
+        <th>Eliminar dicho personaje</th>
+    </tr>
+
 
     <%
-        try{
-            while (resultSet.next()){
-            %>
-    <h2>
-    <%
-                out.println(resultSet.getString("nombre")+" - ");
-
-                out.println(resultSet.getString("casa"));
-    %>
-    </h2>
-    <%
-
+        try {
+            while (resultSet.next()) {
+                out.println("<tr>");
+                out.println("<td>" + resultSet.getString("nombre") + "</td>"); // Col 1
+                out.println("<td>" + resultSet.getString("casa") + "</td>"); // Col 2
+                out.println("<td><form action=\"llistat.jsp\" method=\"get\"><button name=\"borrar\" value=\"" + resultSet.getInt("personajeId") + "\">Eliminar</button></form></td>"); // Col 3
+                out.println("</tr>");
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     %>
-
-
+</table>
 
 
 </body>
