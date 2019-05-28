@@ -24,8 +24,8 @@
     private final String HOST_BBDD = "localhost";
     private final Integer PORT_BBDD = 3306;
     private final String NAME_BBDD = "GOT";
-    private final String USER_BBDD = "miguel";
-    private final String PASSWORD_BBDD = "monteiro";
+    private final String USER_BBDD = "gotAdmin";
+    private final String PASSWORD_BBDD = "adminGot";
 %>
 
 
