@@ -68,13 +68,6 @@
 <body>
 
 
-<p>
-<%=name%>
-<%=idCasa%>
-<%=sentencia%>
-
-</p>
-
 
 <script>
     location.href = "llistatPersonajes.jsp";

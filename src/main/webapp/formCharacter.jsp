@@ -23,15 +23,13 @@
 %>
 
 <%
+
     try {
+
         Class.forName("com.mysql.jdbc.Driver").newInstance();
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-
-    try {
 
 
+        // Definimos conexion
         try {
             connection = DriverManager.getConnection("jdbc:mysql://"
                     + HOST_BBDD + ":"
@@ -42,6 +40,8 @@
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        // Sacamos las casas para el combo box
         statement  = connection.createStatement();
         sentencia = "select name, id from house order by name";
         resultado = statement.executeQuery(sentencia);
@@ -81,11 +81,7 @@
             <%
                 try{
                     while(resultado.next()){
-            %>
-
-            <option value="<%=resultado.getInt("id")%>"><%=resultado.getString("name")%></option>
-
-            <%
+                        out.println("<option value=\"" + resultado.getInt("id") + "\">" + resultado.getString("name") + "</option>");
                     }
                 }catch (Exception e){
                     e.printStackTrace();
