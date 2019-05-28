@@ -11,7 +11,6 @@
     String nameCasa = "";
     Connection connection = null;
     Statement statement = null;
-    ResultSet resultSet = null;
     String sentencia = "";
 
 
@@ -35,7 +34,6 @@
     try {
 
 
-
         connection = DriverManager.getConnection("jdbc:mysql://"
                 + HOST_BBDD + ":"
                 + PORT_BBDD.toString() + "/"
@@ -47,16 +45,9 @@
         sentencia="insert into house (name) values (\""+nameCasa+"\")";
         statement.execute(sentencia);
         // resultSet = statement.executeQuery("select 1");
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-
-
-
 
 
 %>
-
 
 
 <html>
@@ -75,3 +66,17 @@
 
 </body>
 </html>
+
+
+<%
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (statement != null) statement.close();
+            if (connection != null) connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+%>

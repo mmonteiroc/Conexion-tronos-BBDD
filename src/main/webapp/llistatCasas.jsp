@@ -64,13 +64,8 @@
 
         // queryCasas para todas las casas
         statementTotales = connection.createStatement();
-        queryCasasTotal = "select name,house.id from house;";
+        queryCasasTotal = "select name,id from house order by name";
         resultadoTotales = statementTotales.executeQuery(queryCasasTotal);
-
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
 
 
 %>
@@ -85,7 +80,7 @@
 <header>
     <nav>
         <ul>
-            <li><a href="formCharacter.jsp">Añadir Characters</a></li>
+            <li><a href="formCharacter.jsp">Añadir Characters/Casas</a></li>
             <li><a href="llistatPersonajes.jsp">Listado de personajes</a></li>
             <li><a href="llistatCasas.jsp">Listado de Casas</a></li>
         </ul>
@@ -102,6 +97,9 @@
             Todas las casas existentes
         </th>
         <th>
+            Modificar dicha casa
+        </th>
+        <th>
             Eliminar dicha casa
         </th>
     </tr>
@@ -110,7 +108,8 @@
             while (resultadoTotales.next()) {
                 out.println("<tr>");
                 out.println("<td>" + resultadoTotales.getString("name") + "</td>"); // Col 1
-                out.println("<td><form action=\"llistatCasas.jsp\" method=\"get\"><button name=\"borrar\" value=\"" + resultadoTotales.getInt("id") + "\">Eliminar</button></form></td>"); // Col 2
+                out.println("<td><form action=\"modificarCasa.jsp\" method=\"get\" ><button name=\"modificar\" value=\"" + resultadoTotales.getInt("id") + "\">Modificar</button></form></td>"); // Col2
+                out.println("<td><form action=\"llistatCasas.jsp\" method=\"get\"><button name=\"borrar\" value=\"" + resultadoTotales.getInt("id") + "\">Eliminar</button></form></td>"); // Col 3
                 out.println("</tr>");
             }
         } catch (Exception e) {
@@ -124,3 +123,22 @@
 
 </body>
 </html>
+
+
+<%
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        try {
+
+            if (resultadoTotales != null) resultadoTotales.close();
+            if (statementTotales != null) statementTotales.close();
+            //if (statementBusqueda!=null) statementBusqueda.close();
+            if (statementBorrar != null) statementBorrar.close();
+            if (connection != null) connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+%>

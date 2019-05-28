@@ -69,10 +69,6 @@
         queryCasas = "select * from house order by name";
         resultadoCasas = statementCasas.executeQuery(queryCasas);
 
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-
 
 %>
 
@@ -120,3 +116,20 @@
 
 </body>
 </html>
+
+
+<%
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (resultSet != null) resultSet.close();
+            if (statement != null) statement.close();
+            if (resultadoCasas != null) resultadoCasas.close();
+            if (statementCasas != null) statementCasas.close();
+            if (connection != null) connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+%>

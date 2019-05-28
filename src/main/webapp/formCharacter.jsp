@@ -10,7 +10,7 @@
     private Connection connection = null;
     private Statement statement = null;
     private ResultSet resultado = null;
-    private String sentencia = "select name, id from house";
+    private String sentencia = null;
 
 
 
@@ -43,20 +43,11 @@
             e.printStackTrace();
         }
         statement  = connection.createStatement();
-
+        sentencia = "select name, id from house order by name";
         resultado = statement.executeQuery(sentencia);
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-
-
-
 
 
 %>
-
-
 
 
 <html>
@@ -69,7 +60,7 @@
 <header>
     <nav>
         <ul>
-            <li><a href="formCharacter.jsp">Añadir Characters</a></li>
+            <li><a href="formCharacter.jsp">Añadir Characters/Casas</a></li>
             <li><a href="llistatPersonajes.jsp">Listado de personajes</a></li>
             <li><a href="llistatCasas.jsp">Listado de Casas</a></li>
         </ul>
@@ -104,13 +95,6 @@
         </select>
 
 
-
-
-
-
-
-
-
         <input type="submit" value="Enviar">
     </fieldset>
 </form>
@@ -131,3 +115,17 @@
 
 </body>
 </html>
+
+<%
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (resultado != null) resultado.close();
+            if (statement != null) statement.close();
+            if (connection != null) connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+%>

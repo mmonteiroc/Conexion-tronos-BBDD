@@ -20,6 +20,11 @@
     String queryBorrar = null;
     Statement statementBorrar = null;
 
+    // buscar personajes
+    String nameBusqueda = null;
+    String queryBusqueda = null;
+    Statement statementBusqueda;
+
 
     // BBDD -- Variables
     private final String HOST_BBDD = "localhost";
@@ -47,6 +52,7 @@
         statement = connection.createStatement();
 
 
+        // si recibimos un id de un personaje
         idBorrar = request.getParameter("borrar");
         if (idBorrar != null) {
             statementBorrar = connection.createStatement();
@@ -55,15 +61,14 @@
         }
 
 
-        sentencia = "SELECT characters.name as nombre,house.name as casa, characters.id as personajeId FROM characters LEFT JOIN house ON characters.allegianceTo=house.id order by characters.name ";
+        nameBusqueda = request.getParameter("search");
+        if (nameBusqueda == null) {
+            sentencia = "SELECT characters.name as nombre,house.name as casa, characters.id as personajeId FROM characters LEFT JOIN house ON characters.allegianceTo=house.id order by characters.name ";
+        } else {
+            sentencia = "SELECT characters.name as nombre,house.name as casa, characters.id as personajeId FROM characters LEFT JOIN house ON characters.allegianceTo=house.id where characters.name like '%" + nameBusqueda + "%' order by characters.name ";
+        }
         resultSet = statement.executeQuery(sentencia);
 
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    } finally {
-
-    }
 
 %>
 
@@ -80,13 +85,26 @@
 <header>
     <nav>
         <ul>
-            <li><a href="formCharacter.jsp">Añadir Characters</a></li>
+            <li><a href="formCharacter.jsp">Añadir Characters/Casas</a></li>
             <li><a href="llistatPersonajes.jsp">Listado de personajes</a></li>
             <li><a href="llistatCasas.jsp">Listado de Casas</a></li>
         </ul>
     </nav>
 
 </header>
+
+
+<form action="llistatPersonajes.jsp" method="get">
+    <label for="search">Buscar personaje</label>
+    <input type="text" name="search" id="search" placeholder="Capitan" value="<%
+
+        if (nameBusqueda!=null){
+            out.println(nameBusqueda);
+        }
+
+    %>">
+    <input type="submit" value="Search !!">
+</form>
 
 <table>
     <tr>
@@ -124,3 +142,21 @@
 </html>
 
 
+<%
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        // Aqui tendremos que cerrar la conexion
+        try {
+
+            if (resultSet != null) resultSet.close();
+            if (statement != null) statement.close();
+            if (statementBusqueda != null) statementBusqueda.close();
+            if (statementBorrar != null) statementBorrar.close();
+            if (connection != null) connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+%>

@@ -1,6 +1,7 @@
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.DriverManager" %>
+<%@ page import="java.sql.SQLException" %>
 <%--
   Created by IntelliJ IDEA.
   User: mmonteiro
@@ -65,11 +66,6 @@
 
         statementUpdate.executeUpdate(queryUpdate);
 
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-
-
 %>
 <html>
 <head>
@@ -84,3 +80,16 @@
 
 </body>
 </html>
+
+<%
+    } catch (Exception e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (statementUpdate != null) statementUpdate.close();
+            if (connection != null) connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+%>
