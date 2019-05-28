@@ -70,21 +70,23 @@
     <nav>
         <ul>
             <li><a href="formCharacter.jsp">Añadir Characters</a></li>
-            <li><a href="llistat.jsp">Listado de personajes/casas</a></li>
+            <li><a href="llistatPersonajes.jsp">Listado de personajes</a></li>
+            <li><a href="llistatCasas.jsp">Listado de Casas</a></li>
         </ul>
     </nav>
+
 </header>
 
 
-
-<form action="insertarPersonajes.jsp" method="post">
+<form action="insertarPersonajes.jsp" method="post" class="insertForm">
     <fieldset>
         <legend>Añadir Caracter</legend>
         <label for="name">Nombre:</label>
-        <input type="text" name="name" id="name" placeholder="Tony Stark">
+        <input type="text" name="name" id="name" placeholder="Tony Stark" required>
 
         <label for="casa">Casa:</label>
         <select name="casa" id="casa" >
+            <option value="null">Sin casa</option>
             <%
                 try{
                     while(resultado.next()){
@@ -113,13 +115,13 @@
     </fieldset>
 </form>
 
-<form action="insertarCasa.jsp" method="post">
+<form action="insertarCasa.jsp" method="post" class="insertForm">
 
     <fieldset>
         <legend>Añadir casa</legend>
 
         <label for="house-name">Nombre de la casa:</label>
-        <input type="text" name="house-name" id="house-name" placeholder="Casa stark">
+        <input type="text" name="house-name" id="house-name" placeholder="Casa stark" required>
 
 
         <input type="submit" value="Añadir casa">

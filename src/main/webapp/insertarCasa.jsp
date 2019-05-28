@@ -68,9 +68,7 @@
 
 <script>
 
-    setInterval(function () {
-        location.href ="llistat.jsp";
-    },500);
+    location.href = "llistatCasas.jsp";
 
 </script>
 

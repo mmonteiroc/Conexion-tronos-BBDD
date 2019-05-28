@@ -1,7 +1,4 @@
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.Statement" %>
+<%@ page import="java.sql.*" %>
 <%--
   Created by IntelliJ IDEA.
   User: mmonteiro
@@ -16,6 +13,12 @@
     Statement statement = null;
     ResultSet resultSet = null;
     String sentencia = "";
+
+
+    // Si recibimos parametros por get
+    String idBorrar = null;
+    String queryBorrar = null;
+    Statement statementBorrar = null;
 
 
     // BBDD -- Variables
@@ -43,12 +46,23 @@
                 + PASSWORD_BBDD);
         statement = connection.createStatement();
 
-        sentencia = "SELECT characters.name as nombre,house.name as casa, characters.id as personajeId FROM characters INNER JOIN house ON characters.allegianceTo=house.id";
+
+        idBorrar = request.getParameter("borrar");
+        if (idBorrar != null) {
+            statementBorrar = connection.createStatement();
+            queryBorrar = "delete from characters where id=" + idBorrar;
+            statementBorrar.executeUpdate(queryBorrar);
+        }
+
+
+        sentencia = "SELECT characters.name as nombre,house.name as casa, characters.id as personajeId FROM characters LEFT JOIN house ON characters.allegianceTo=house.id order by characters.name ";
         resultSet = statement.executeQuery(sentencia);
 
 
     } catch (Exception e) {
         e.printStackTrace();
+    } finally {
+
     }
 
 %>
@@ -67,7 +81,8 @@
     <nav>
         <ul>
             <li><a href="formCharacter.jsp">Añadir Characters</a></li>
-            <li><a href="llistat.jsp">Listado de personajes/casas</a></li>
+            <li><a href="llistatPersonajes.jsp">Listado de personajes</a></li>
+            <li><a href="llistatCasas.jsp">Listado de Casas</a></li>
         </ul>
     </nav>
 
@@ -77,6 +92,7 @@
     <tr>
         <th>Nombre del personaje</th>
         <th>Nombre de la Casa</th>
+        <th>Modificar dicho personaje</th>
         <th>Eliminar dicho personaje</th>
     </tr>
 
@@ -86,8 +102,14 @@
             while (resultSet.next()) {
                 out.println("<tr>");
                 out.println("<td>" + resultSet.getString("nombre") + "</td>"); // Col 1
-                out.println("<td>" + resultSet.getString("casa") + "</td>"); // Col 2
-                out.println("<td><form action=\"llistat.jsp\" method=\"get\"><button name=\"borrar\" value=\"" + resultSet.getInt("personajeId") + "\">Eliminar</button></form></td>"); // Col 3
+
+                if (resultSet.getString("casa") == null) {
+                    out.println("<td> </td>"); // Col 2
+                } else {
+                    out.println("<td>" + resultSet.getString("casa") + "</td>"); // Col 2
+                }
+                out.println("<td><form action=\"modificarPersonaje.jsp\" method=\"get\" ><button name=\"modificar\" value=\"" + resultSet.getInt("personajeId") + "\">Modificar</button></form></td>");
+                out.println("<td><form action=\"llistatPersonajes.jsp\" method=\"get\"><button name=\"borrar\" value=\"" + resultSet.getInt("personajeId") + "\">Eliminar</button></form></td>"); // Col 3
                 out.println("</tr>");
             }
 

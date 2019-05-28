@@ -33,7 +33,7 @@
         e.printStackTrace();
     }
     name = request.getParameter("name");
-    idCasa = Integer.parseInt(request.getParameter("casa"));
+
 
     try {
 
@@ -47,10 +47,16 @@
                 + PASSWORD_BBDD);
         statement  = connection.createStatement();
 
-        sentencia="insert into characters (name,allegianceTo) values (\""+name+"\","+idCasa+")";
+
+        if (request.getParameter("casa").equals("null")) {
+            sentencia = "insert into characters (name,allegianceTo) values (\"" + name + "\",NULL)";
+        } else {
+            idCasa = Integer.parseInt(request.getParameter("casa"));
+            sentencia = "insert into characters (name,allegianceTo) values (\"" + name + "\"," + idCasa + ")";
+        }
+
         statement.execute(sentencia);
         // resultSet = statement.executeQuery("select 1");
-
 
     } catch (SQLException e) {
         e.printStackTrace();
@@ -83,9 +89,7 @@
 
 <script>
 
-    setInterval(function () {
-        location.href ="llistat.jsp";
-    },500);
+    location.href = "llistatPersonajes.jsp";
 
 </script>
 

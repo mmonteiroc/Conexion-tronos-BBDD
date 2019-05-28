@@ -7,7 +7,7 @@
 <body>
 <h2>Hello World!</h2>
 <script>
-    location.href ="llistat.jsp";
+    location.href = "llistatPersonajes.jsp";
 </script>
 </body>
 </html>
