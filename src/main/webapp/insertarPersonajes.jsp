@@ -17,7 +17,6 @@
     String sentencia = "";
 
 
-
     // BBDD -- Variables
     private final String HOST_BBDD = "jdbc:mysql://localhost:3306";
     private final String NAME_BBDD = "GOT";
@@ -25,9 +24,6 @@
     private final String PASSWORD_BBDD = "adminGot";
     // Pool
     final BasicDataSource pool = new BasicDataSource();
-
-
-
 %>
 
 <%
@@ -49,26 +45,30 @@
         pool.setDefaultQueryTimeout(15);
         pool.setMaxWaitMillis(2000);
 
-
     } catch (Exception e) {
         e.printStackTrace();
     }
-
+    name = request.getParameter("name");
     try {
+        /*connection = DriverManager.getConnection("jdbc:mysql://"
+                + HOST_BBDD + ":"
+                + PORT_BBDD.toString() + "/"
+                + NAME_BBDD + "?user="
+                + USER_BBDD + "&password="
+                + PASSWORD_BBDD);*/
 
         connection = pool.getConnection();
 
+
+        statement = connection.createStatement();
         if (request.getParameter("casa").equals("null")) {
             sentencia = "insert into characters (name,allegianceTo) values (\"" + name + "\",NULL)";
         } else {
             idCasa = Integer.parseInt(request.getParameter("casa"));
             sentencia = "insert into characters (name,allegianceTo) values (\"" + name + "\"," + idCasa + ")";
         }
-
         statement.execute(sentencia);
         // resultSet = statement.executeQuery("select 1");
-
-
 %>
 
 <!DOCTYPE html>
