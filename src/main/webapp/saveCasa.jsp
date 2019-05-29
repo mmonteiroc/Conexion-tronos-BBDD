@@ -13,9 +13,8 @@
 
 <%!
     // Atributos que recibiremos por post
-    Integer personajeModificarID = null;
-    String nombrePersonaje = null;
-    Integer casaPersonaje = null;
+    Integer casaModificarId = null;
+    String nombreCasaNew = null;
 
     // Atributos para el update
     Connection connection = null;
@@ -51,19 +50,11 @@
         statementUpdate = connection.createStatement();
 
 
-        personajeModificarID = Integer.parseInt(request.getParameter("personajeModificar"));
-        nombrePersonaje = request.getParameter("nombreCasa");
+        casaModificarId = Integer.parseInt(request.getParameter("casaModificar"));
+        nombreCasaNew = request.getParameter("newNameHouse");
 
-        if (request.getParameter("casaPersonaje").equals("null")) {
-            // Personaje sin casa
-            queryUpdate = "update characters set name=\"" + nombrePersonaje + "\",allegianceTo=" + null + " where id=" + personajeModificarID;
 
-        } else {
-            // Personaje con casa
-            casaPersonaje = Integer.parseInt(request.getParameter("casaPersonaje"));
-            queryUpdate = "update characters set name=\"" + nombrePersonaje + "\",allegianceTo=" + casaPersonaje + " where id=" + personajeModificarID;
-        }
-
+        queryUpdate = "update house set name=\"" + nombreCasaNew + "\" where id=" + casaModificarId;
         statementUpdate.executeUpdate(queryUpdate);
 
 %>
@@ -75,7 +66,7 @@
 
 
 <script>
-    location.href = "llistatPersonajes.jsp";
+    location.href = "llistatCasas.jsp";
 </script>
 
 </body>
