@@ -27,9 +27,10 @@
 %>
 
 <%
+
+
     try {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
-
         // Conexion
         pool.setDefaultCatalog(NAME_BBDD);
         pool.setUsername(USER_BBDD);
