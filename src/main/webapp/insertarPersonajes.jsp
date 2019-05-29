@@ -1,5 +1,6 @@
 <%@ page import="jdk.nashorn.internal.runtime.ECMAException" %>
-<%@ page import="java.sql.*" %><%--
+<%@ page import="java.sql.*" %>
+<%@ page import="org.apache.commons.dbcp2.BasicDataSource" %><%--
   Created by IntelliJ IDEA.
   User: mmonteiro
   Date: 24/05/19
@@ -18,33 +19,44 @@
 
 
     // BBDD -- Variables
-    private final String HOST_BBDD = "localhost";
-    private final Integer PORT_BBDD = 3306;
+    private final String HOST_BBDD = "jdbc:mysql://localhost:3306";
     private final String NAME_BBDD = "GOT";
     private final String USER_BBDD = "gotAdmin";
     private final String PASSWORD_BBDD = "adminGot";
+    // Pool
+    final BasicDataSource pool = new BasicDataSource();
+
+
+
 %>
 
 <%
     try {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+        // Conexion
+        pool.setDefaultCatalog(NAME_BBDD);
+        pool.setUsername(USER_BBDD);
+        pool.setPassword(PASSWORD_BBDD);
+        pool.setUrl(HOST_BBDD);
+
+        // Parametros
+        pool.setMaxIdle(10);
+        pool.setMinIdle(1);
+        pool.setMaxTotal(5);
+        pool.setValidationQuery("select 1");
+        pool.setValidationQueryTimeout(1);
+        pool.setDefaultQueryTimeout(15);
+        pool.setMaxWaitMillis(2000);
+
+
     } catch (Exception e) {
         e.printStackTrace();
     }
-    name = request.getParameter("name");
-
 
     try {
 
-
-        connection = DriverManager.getConnection("jdbc:mysql://"
-                + HOST_BBDD + ":"
-                + PORT_BBDD.toString() + "/"
-                + NAME_BBDD + "?user="
-                + USER_BBDD + "&password="
-                + PASSWORD_BBDD);
-        statement  = connection.createStatement();
-
+        connection = pool.getConnection();
 
         if (request.getParameter("casa").equals("null")) {
             sentencia = "insert into characters (name,allegianceTo) values (\"" + name + "\",NULL)";

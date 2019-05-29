@@ -1,4 +1,5 @@
-<%@ page import="java.sql.*" %><%--
+<%@ page import="java.sql.*" %>
+<%@ page import="org.apache.commons.dbcp2.BasicDataSource" %><%--
   Created by IntelliJ IDEA.
   User: mmonteiro
   Date: 29/05/19
@@ -18,29 +19,43 @@
 
 
     // BBDD -- Variables
-    private final String HOST_BBDD = "localhost";
-    private final Integer PORT_BBDD = 3306;
+    private final String HOST_BBDD = "jdbc:mysql://localhost:3306";
     private final String NAME_BBDD = "GOT";
     private final String USER_BBDD = "gotAdmin";
     private final String PASSWORD_BBDD = "adminGot";
+    // Pool
+    final BasicDataSource pool = new BasicDataSource();
+
+
 %>
+
 <%
     try {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+        // Conexion
+        pool.setDefaultCatalog(NAME_BBDD);
+        pool.setUsername(USER_BBDD);
+        pool.setPassword(PASSWORD_BBDD);
+        pool.setUrl(HOST_BBDD);
+
+        // Parametros
+        pool.setMaxIdle(10);
+        pool.setMinIdle(1);
+        pool.setMaxTotal(5);
+        pool.setValidationQuery("select 1");
+        pool.setValidationQueryTimeout(1);
+        pool.setDefaultQueryTimeout(15);
+        pool.setMaxWaitMillis(2000);
+
+
     } catch (Exception e) {
         e.printStackTrace();
     }
 
-
     try {
 
-        // establecemos conexion
-        connection = DriverManager.getConnection("jdbc:mysql://"
-                + HOST_BBDD + ":"
-                + PORT_BBDD.toString() + "/"
-                + NAME_BBDD + "?user="
-                + USER_BBDD + "&password="
-                + PASSWORD_BBDD);
+        connection = pool.getConnection();
         statement = connection.createStatement();
 
         idCasa = Integer.parseInt(request.getParameter("modificar"));
