@@ -75,7 +75,7 @@
 <head>
     <meta charset="UTF-16">
     <title>Listado de casas</title>
-    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/listHouse.css">
 </head>
 <header>
     <nav>
