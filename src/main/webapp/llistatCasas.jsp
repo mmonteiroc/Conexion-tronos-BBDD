@@ -170,6 +170,7 @@
     } finally {
         try {
 
+
             if (resultadoTotales != null) resultadoTotales.close();
             if (statementTotales != null) statementTotales.close();
             //if (statementBusqueda!=null) statementBusqueda.close();

@@ -46,7 +46,6 @@
         pool.setDefaultQueryTimeout(15);
         pool.setMaxWaitMillis(2000);
 
-
     } catch (Exception e) {
         e.printStackTrace();
     }

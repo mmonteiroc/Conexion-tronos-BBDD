@@ -73,7 +73,6 @@
         connection = pool.getConnection();
         statement = connection.createStatement();
 
-
         // si recibimos un id de un personaje
         idBorrar = request.getParameter("borrar");
         if (idBorrar != null) {

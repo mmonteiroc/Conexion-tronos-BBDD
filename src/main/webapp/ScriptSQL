@@ -17,6 +17,7 @@ create table characters
     constraint fk_allegiance foreign key (allegianceTo) references house (id)
 );
 
+
 -- datos
 INSERT INTO `house`
 VALUES (51, 'Czech Republic'),
