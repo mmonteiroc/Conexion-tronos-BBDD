@@ -92,6 +92,7 @@ nav li a {
 input[type=text]{
 
     border: none;
+
     outline: none;
     background: transparent;
     border-bottom: 1px solid #000000;
