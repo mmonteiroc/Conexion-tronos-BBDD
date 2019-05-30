@@ -1,5 +1,4 @@
-<%@ page import="java.sql.*" %>
-<%@ page import="org.apache.commons.dbcp2.BasicDataSource" %><%--
+<%@ page import="java.sql.*" %><%--
   Created by IntelliJ IDEA.
   User: mmonteiro
   Date: 27/05/19
@@ -12,7 +11,7 @@
     Connection connection = null;
     Statement statementTotales = null;
     ResultSet resultadoTotales = null;
-    String queryCasas = null;
+    String queryCasasTotal = null;
 
 
     // Si recibimos parametros por get para borrar las casas
@@ -20,53 +19,32 @@
     String queryBorrar = null;
     Statement statementBorrar = null;
 
-    // buscar casas
-    String nameBusqueda = null;
-
-
 
     // BBDD -- Variables
-    private final String HOST_BBDD = "jdbc:mysql://localhost:3306";
+    private final String HOST_BBDD = "localhost";
+    private final Integer PORT_BBDD = 3306;
     private final String NAME_BBDD = "GOT";
     private final String USER_BBDD = "gotAdmin";
     private final String PASSWORD_BBDD = "adminGot";
-    // Pool
-    final BasicDataSource pool = new BasicDataSource();
 %>
 
 
 <%
     try {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
-        // Conexion
-        pool.setDefaultCatalog(NAME_BBDD);
-        pool.setUsername(USER_BBDD);
-        pool.setPassword(PASSWORD_BBDD);
-        pool.setUrl(HOST_BBDD);
-
-        // Parametros
-        pool.setMaxIdle(10);
-        pool.setMinIdle(1);
-        pool.setMaxTotal(5);
-        pool.setValidationQuery("select 1");
-        pool.setValidationQueryTimeout(1);
-        pool.setDefaultQueryTimeout(15);
-        pool.setMaxWaitMillis(2000);
-
     } catch (Exception e) {
         e.printStackTrace();
     }
 
 
     try {
-        /*connection = DriverManager.getConnection("jdbc:mysql://"
+        connection = DriverManager.getConnection("jdbc:mysql://"
                 + HOST_BBDD + ":"
                 + PORT_BBDD.toString() + "/"
                 + NAME_BBDD + "?user="
                 + USER_BBDD + "&password="
-                + PASSWORD_BBDD);*/
+                + PASSWORD_BBDD);
 
-        connection = pool.getConnection();
 
         idBorrar = request.getParameter("borrar");
         if (idBorrar != null) {
@@ -78,20 +56,16 @@
             borrarReferencias.executeUpdate("update characters set allegianceTo = null where allegianceTo=" + idBorrar);
             safeUpdates1.execute("SET SQL_SAFE_UPDATES = 1");
 
+
             queryBorrar = "delete from house where id=" + idBorrar;
             statementBorrar.executeUpdate(queryBorrar);
         }
 
 
-        // queryCasas para sacar las casas
+        // queryCasas para todas las casas
         statementTotales = connection.createStatement();
-        nameBusqueda = request.getParameter("search");
-        if (nameBusqueda == null) {
-            queryCasas = "select name,id from house order by name";
-        } else {
-            queryCasas = "select name,id from house where name like '%" + nameBusqueda + "%' order by name";
-        }
-        resultadoTotales = statementTotales.executeQuery(queryCasas);
+        queryCasasTotal = "select name,id from house order by name";
+        resultadoTotales = statementTotales.executeQuery(queryCasasTotal);
 
 
 %>
@@ -114,18 +88,6 @@
 
 </header>
 <body>
-
-<form action="llistatCasas.jsp" method="get">
-    <label for="search">Buscar casa</label>
-    <input type="text" name="search" id="search" placeholder="Casa aria" value="<%
-
-        if (nameBusqueda!=null){
-            out.println(nameBusqueda);
-        }
-
-    %>">
-    <input type="submit" value="Search !!">
-</form>
 
 
 <table>

@@ -1,0 +1,136 @@
+@font-face {
+    font-family: "got";
+    src: url(font/got.ttf);
+}
+
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: "got";
+    font-weight: bold;
+}
+
+body {
+
+
+    background-position: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.listar-cas {
+    background-image: url("img/casas.jpg");
+    background-size: cover;
+}
+
+.pepi {
+    background-image: url("img/character.jpg");
+    background-size: 100% 100%;
+
+}
+
+.probando{
+
+    margin-top: 50px;
+}
+
+.probando label{
+
+    margin-right: 20px;
+}
+
+.probando input{
+
+    margin-right: 20px;
+}
+
+.probando input[type=text]{
+
+    border: none;
+    outline: none;
+    background: transparent;
+    border-bottom: 2px solid #000000;
+    margin-bottom: 10px;
+    width: 140px;
+    padding: 5px;
+    font-size: 12px;
+
+}
+
+nav {
+
+    background-color: black;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    font-size: 10px;
+}
+
+nav li {
+    float: left;
+    margin: 20px;
+    list-style: none;
+    color: white;
+}
+
+nav li a:hover {
+    color: white;
+    border-bottom: 1px white solid;
+
+}
+
+
+nav li a {
+    text-decoration: none;
+    color: white;
+}
+
+.tabla-casas {
+
+    background-color: rgba(230, 230, 230, 0.7);
+    margin-top: 100px;
+    padding: 30px;
+    width: 800px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 150px;
+
+}
+
+table {
+    border-collapse: collapse;
+
+    color: black;
+}
+
+table, th, td {
+    border: 2px solid black;
+    padding: 10px 30px;
+}
+
+
+#boton-enviar {
+
+    padding: 10px;
+    background: transparent;
+    width: 120px;
+    font-size: 10px;
+    color: white;
+    background: rgba(0, 0, 0, 0.8);
+    font-weight: bold;
+    border: 1px solid #000000;
+
+}
+
+
+tr:hover {
+
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+}
