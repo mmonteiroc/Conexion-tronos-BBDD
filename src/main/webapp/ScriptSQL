@@ -1,0 +1,60 @@
+-- creamos la bbdd de nuevo
+drop database if exists GOT;
+create database if not exists GOT;
+
+use GOT;
+-- creamos las tablas
+create table house
+(
+    id   int unsigned auto_increment primary key,
+    name varchar(50) not null
+);
+create table characters
+(
+    id           int unsigned auto_increment primary key,
+    name         varchar(50) not null,
+    allegianceTo int unsigned,
+    constraint fk_allegiance foreign key (allegianceTo) references house (id)
+);
+
+-- datos
+INSERT INTO `house`
+VALUES (51, 'Czech Republic'),
+       (52, 'Portugal'),
+       (54, 'Malta'),
+       (55, 'Francia'),
+       (56, 'Italia'),
+       (57, 'Alemania'),
+       (60, 'Casa stark v1.0.1'),
+       (61, 'Podemos'),
+       (62, 'Ciudagramos'),
+       (63, 'vOx'),
+       (66, 'PSOE-PSIB'),
+       (67, 'Vengadores'),
+       (68, 'Casa Lennister'),
+       (70, '00 Espanita siempre arriba'),
+       (72, 'text'),
+       (73, 'putoncitos'),
+       (74, 'Chernobyl');
+INSERT INTO `characters`
+VALUES (73, 'Friend Of A Friend v2', 62),
+       (75, 'La venda', 70),
+       (77, 'Roi', 55),
+       (78, 'Soldi', 56),
+       (79, 'Nana Banana', 60),
+       (80, 'S!ster', 57),
+       (81, 'Iron man', 67),
+       (82, 'Hulk V1.0.1', 51),
+       (87, 'prova', 68),
+       (88, 'pacoooo', NULL),
+       (89, 'Pepiti', 57),
+       (90, 'Hola nud', 57),
+       (92, 'zzzzzzz', 66),
+       (93, 'Radioactividad', 74);
+
+
+-- creamos un usuario solo para dicha bbdd
+CREATE USER 'gotAdmin'@'localhost' IDENTIFIED BY 'adminGot';
+GRANT ALL PRIVILEGES ON GOT.* TO 'gotAdmin'@'localhost';
+FLUSH PRIVILEGES;
+
