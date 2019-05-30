@@ -12,13 +12,17 @@
     Connection connection = null;
     Statement statementTotales = null;
     ResultSet resultadoTotales = null;
-    String queryCasasTotal = null;
+    String queryCasas = null;
 
 
     // Si recibimos parametros por get para borrar las casas
     String idBorrar = null;
     String queryBorrar = null;
     Statement statementBorrar = null;
+
+    // buscar casas
+    String nameBusqueda = null;
+
 
 
     // BBDD -- Variables
@@ -74,16 +78,20 @@
             borrarReferencias.executeUpdate("update characters set allegianceTo = null where allegianceTo=" + idBorrar);
             safeUpdates1.execute("SET SQL_SAFE_UPDATES = 1");
 
-
             queryBorrar = "delete from house where id=" + idBorrar;
             statementBorrar.executeUpdate(queryBorrar);
         }
 
 
-        // queryCasas para todas las casas
+        // queryCasas para sacar las casas
         statementTotales = connection.createStatement();
-        queryCasasTotal = "select name,id from house order by name";
-        resultadoTotales = statementTotales.executeQuery(queryCasasTotal);
+        nameBusqueda = request.getParameter("search");
+        if (nameBusqueda == null) {
+            queryCasas = "select name,id from house order by name";
+        } else {
+            queryCasas = "select name,id from house where name like '%" + nameBusqueda + "%' order by name";
+        }
+        resultadoTotales = statementTotales.executeQuery(queryCasas);
 
 
 %>
@@ -106,6 +114,18 @@
 
 </header>
 <body>
+
+<form action="llistatCasas.jsp" method="get">
+    <label for="search">Buscar casa</label>
+    <input type="text" name="search" id="search" placeholder="Casa aria" value="<%
+
+        if (nameBusqueda!=null){
+            out.println(nameBusqueda);
+        }
+
+    %>">
+    <input type="submit" value="Search !!">
+</form>
 
 
 <table>

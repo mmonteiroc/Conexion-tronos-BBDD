@@ -23,8 +23,6 @@
 
     // buscar personajes
     String nameBusqueda = null;
-    String queryBusqueda = null;
-    Statement statementBusqueda;
 
 
     // BBDD -- Variables
@@ -175,7 +173,6 @@
 
             if (resultSet != null) resultSet.close();
             if (statement != null) statement.close();
-            if (statementBusqueda != null) statementBusqueda.close();
             if (statementBorrar != null) statementBorrar.close();
             if (connection != null) connection.close();
 
