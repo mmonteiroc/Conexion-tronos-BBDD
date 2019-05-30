@@ -124,7 +124,7 @@
         }
 
     %>">
-    <input type="submit" value="Search !!">
+    <input type="submit" id="boton-enviar" value="Buscar">
 </form>
 
 <div class="tabla-casas">
@@ -133,13 +133,13 @@
 
         <tr>
             <th>
-                Todas las casas existentes
+                Casas
             </th>
             <th>
-                Modificar dicha casa
+                Modificar casa
             </th>
             <th>
-                Eliminar dicha casa
+                Eliminar casa
             </th>
         </tr>
         <%
@@ -147,8 +147,8 @@
                 while (resultadoTotales.next()) {
                     out.println("<tr>");
                     out.println("<td>" + resultadoTotales.getString("name") + "</td>"); // Col 1
-                    out.println("<td><form action=\"modificarCasa.jsp\" method=\"get\" ><button name=\"modificar\" value=\"" + resultadoTotales.getInt("id") + "\">Modificar</button></form></td>"); // Col2
-                    out.println("<td><form action=\"llistatCasas.jsp\" method=\"get\"><button name=\"borrar\" value=\"" + resultadoTotales.getInt("id") + "\">Eliminar</button></form></td>"); // Col 3
+                    out.println("<td><form action=\"modificarCasa.jsp\" method=\"get\" ><button id=\"boton-enviar\" name=\"modificar\" value=\"" + resultadoTotales.getInt("id") + "\">Modificar</button></form></td>"); // Col2
+                    out.println("<td><form action=\"llistatCasas.jsp\" method=\"get\"><button id=\"boton-enviar\" name=\"borrar\" value=\"" + resultadoTotales.getInt("id") + "\">Eliminar</button></form></td>"); // Col 3
                     out.println("</tr>");
                 }
             } catch (Exception e) {
