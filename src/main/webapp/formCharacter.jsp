@@ -86,7 +86,7 @@
 
 
     <form action="insertarPersonajes.jsp" method="post" class="insertFormCharacter">
-        <p>Personaje</p>
+        <span>Add character</span>
         <label for="name">Nombre:</label>
         <input type="text" name="name" id="name" placeholder="Jonh Snow" required>
 
@@ -111,7 +111,7 @@
 
     <form action="insertarCasa.jsp" method="post" class="insertFormHouse">
 
-        <p>Casa</p>
+        <span>Add house</span>
 
         <label for="house-name">Nombre de la casa:</label>
         <input type="text" name="house-name" id="house-name" placeholder="Casa stark" required>
