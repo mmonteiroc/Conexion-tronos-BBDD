@@ -1,12 +1,13 @@
 <%@ page import="java.sql.*" %>
-<%@ page import="org.apache.commons.dbcp2.BasicDataSource" %><%--
+<%@ page import="org.apache.commons.dbcp2.BasicDataSource" %>
+<%--
   Created by IntelliJ IDEA.
   User: mmonteiro
   Date: 25/05/19
   Time: 21:00
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <%!
     String nameCasa = "";
@@ -23,7 +24,6 @@
     private final String PASSWORD_BBDD = "adminGot";
     // Pool
     final BasicDataSource pool = new BasicDataSource();
-
 
 
 %>
@@ -58,12 +58,12 @@
 
 
         statement  = connection.createStatement();
+
+
         nameCasa = request.getParameter("house-name");
 
         sentencia="insert into house (name) values (\""+nameCasa+"\")";
         statement.execute(sentencia);
-        // resultSet = statement.executeQuery("select 1");
-
 
 %>
 
@@ -73,11 +73,14 @@
     <title>Title</title>
 </head>
 <body>
+<%=sentencia%>
 
 
 <script>
 
+    //    setTimeout(function () {
     location.href = "llistatCasas.jsp";
+    //    },10000)
 
 </script>
 

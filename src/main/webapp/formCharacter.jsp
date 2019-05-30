@@ -109,7 +109,7 @@
         <input type="submit" class="boton-enviar" value="Enviar">
     </form>
 
-    <form action="insertarCasa.jsp" method="post" class="insertFormHouse">
+    <form action="insertarCasa.jsp" method="get" class="insertFormHouse">
 
         <span>Add house</span>
 

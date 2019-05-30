@@ -14,7 +14,6 @@
     ResultSet resultadoTotales = null;
     String queryCasas = null;
 
-
     // Si recibimos parametros por get para borrar las casas
     String idBorrar = null;
     String queryBorrar = null;
@@ -22,7 +21,6 @@
 
     // buscar casas
     String nameBusqueda = null;
-
 
 
     // BBDD -- Variables

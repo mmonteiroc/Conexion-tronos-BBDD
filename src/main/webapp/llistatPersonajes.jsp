@@ -131,37 +131,36 @@
 
 <div class="tabla-casas">
 
-<table>
-    <tr>
-        <th>Nombre Personaje</th>
-        <th>Nombre Casa</th>
-        <th>Modificar </th>
-        <th>Eliminar </th>
-    </tr>
+    <table>
+        <tr>
+            <th>Nombre Personaje</th>
+            <th>Nombre Casa</th>
+            <th>Modificar</th>
+            <th>Eliminar</th>
+        </tr>
 
 
-    <%
-        try {
-            while (resultSet.next()) {
-                out.println("<tr>");
-                out.println("<td>" + resultSet.getString("nombre") + "</td>"); // Col 1
+        <%
+            try {
+                while (resultSet.next()) {
+                    out.println("<tr>");
+                    out.println("<td>" + resultSet.getString("nombre") + "</td>"); // Col 1
 
-                if (resultSet.getString("casa") == null) {
-                    out.println("<td> </td>"); // Col 2
-                } else {
-                    out.println("<td>" + resultSet.getString("casa") + "</td>"); // Col 2
+                    if (resultSet.getString("casa") == null) {
+                        out.println("<td> </td>"); // Col 2
+                    } else {
+                        out.println("<td>" + resultSet.getString("casa") + "</td>"); // Col 2
+                    }
+                    out.println("<td><form action=\"modificarPersonaje.jsp\" method=\"get\" ><button id= \"boton-enviar\" name=\"modificar\" value=\"" + resultSet.getInt("personajeId") + "\">Modificar</button></form></td>");
+                    out.println("<td><form action=\"llistatPersonajes.jsp\" method=\"get\"><button id= \"boton-enviar\" name=\"borrar\" value=\"" + resultSet.getInt("personajeId") + "\">Eliminar</button></form></td>"); // Col 3
+                    out.println("</tr>");
                 }
-                out.println("<td><form action=\"modificarPersonaje.jsp\" method=\"get\" ><button id= \"boton-enviar\" name=\"modificar\" value=\"" + resultSet.getInt("personajeId") + "\">Modificar</button></form></td>");
-                out.println("<td><form action=\"llistatPersonajes.jsp\" method=\"get\"><button id= \"boton-enviar\" name=\"borrar\" value=\"" + resultSet.getInt("personajeId") + "\">Eliminar</button></form></td>"); // Col 3
-                out.println("</tr>");
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    %>
-</table>
-
+        %>
+    </table>
 </div>
 
 
