@@ -78,10 +78,10 @@
 <head>
     <meta charset="UTF-16">
     <title>Llistat de usuaris</title>
-    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/listHouse.css">
 
 </head>
-<body>
+<body class="pepi">
 <header>
     <nav>
         <ul>
@@ -94,7 +94,7 @@
 </header>
 
 
-<form action="llistatPersonajes.jsp" method="get">
+<form action="llistatPersonajes.jsp" method="get" class="probando">
     <label for="search">Buscar personaje</label>
     <input type="text" name="search" id="search" placeholder="Capitan" value="<%
 
@@ -103,15 +103,18 @@
         }
 
     %>">
-    <input type="submit" value="Search !!">
+    <input type="submit" id="boton-enviar" value="Buscar">
 </form>
+
+
+<div class="tabla-casas">
 
 <table>
     <tr>
-        <th>Nombre del personaje</th>
-        <th>Nombre de la Casa</th>
-        <th>Modificar dicho personaje</th>
-        <th>Eliminar dicho personaje</th>
+        <th>Nombre Personaje</th>
+        <th>Nombre Casa</th>
+        <th>Modificar </th>
+        <th>Eliminar </th>
     </tr>
 
 
@@ -126,8 +129,8 @@
                 } else {
                     out.println("<td>" + resultSet.getString("casa") + "</td>"); // Col 2
                 }
-                out.println("<td><form action=\"modificarPersonaje.jsp\" method=\"get\" ><button name=\"modificar\" value=\"" + resultSet.getInt("personajeId") + "\">Modificar</button></form></td>");
-                out.println("<td><form action=\"llistatPersonajes.jsp\" method=\"get\"><button name=\"borrar\" value=\"" + resultSet.getInt("personajeId") + "\">Eliminar</button></form></td>"); // Col 3
+                out.println("<td><form action=\"modificarPersonaje.jsp\" method=\"get\" ><button id= \"boton-enviar\" name=\"modificar\" value=\"" + resultSet.getInt("personajeId") + "\">Modificar</button></form></td>");
+                out.println("<td><form action=\"llistatPersonajes.jsp\" method=\"get\"><button id= \"boton-enviar\" name=\"borrar\" value=\"" + resultSet.getInt("personajeId") + "\">Eliminar</button></form></td>"); // Col 3
                 out.println("</tr>");
             }
 
@@ -136,6 +139,8 @@
         }
     %>
 </table>
+
+</div>
 
 
 </body>

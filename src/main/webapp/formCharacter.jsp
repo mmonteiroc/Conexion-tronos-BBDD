@@ -13,7 +13,6 @@
     private String sentencia = null;
 
 
-
     // BBDD -- Variables
     private final String HOST_BBDD = "localhost";
     private final Integer PORT_BBDD = 3306;
@@ -42,7 +41,7 @@
         }
 
         // Sacamos las casas para el combo box
-        statement  = connection.createStatement();
+        statement = connection.createStatement();
         sentencia = "select name, id from house order by name";
         resultado = statement.executeQuery(sentencia);
 
@@ -53,14 +52,14 @@
 <html>
 <head>
     <title>Form insertar personajes/casas</title>
-    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/formAdd.css">
 </head>
-<body>
+<body class="personajes">
 
 <header>
     <nav>
         <ul>
-            <li><a href="formCharacter.jsp">Añadir Characters/Casas</a></li>
+            <li><a href="formCharacter.jsp">Añadir Characters / Casas</a></li>
             <li><a href="llistatPersonajes.jsp">Listado de personajes</a></li>
             <li><a href="llistatCasas.jsp">Listado de Casas</a></li>
         </ul>
@@ -68,22 +67,23 @@
 
 </header>
 
+<div class="caja-form">
 
-<form action="insertarPersonajes.jsp" method="post" class="insertForm">
-    <fieldset>
-        <legend>Añadir Caracter</legend>
+
+    <form action="insertarPersonajes.jsp" method="post" class="insertFormCharacter">
+        <p>Personaje</p>
         <label for="name">Nombre:</label>
-        <input type="text" name="name" id="name" placeholder="Tony Stark" required>
+        <input type="text" name="name" id="name" placeholder="Jonh Snow" required>
 
         <label for="casa">Casa:</label>
-        <select name="casa" id="casa" >
+        <select name="casa" class="select-selected" id="casa">
             <option value="null">Sin casa</option>
             <%
-                try{
-                    while(resultado.next()){
+                try {
+                    while (resultado.next()) {
                         out.println("<option value=\"" + resultado.getInt("id") + "\">" + resultado.getString("name") + "</option>");
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             %>
@@ -91,23 +91,23 @@
         </select>
 
 
-        <input type="submit" value="Enviar">
-    </fieldset>
-</form>
+        <input type="submit" class="boton-enviar" value="Enviar">
+    </form>
 
-<form action="insertarCasa.jsp" method="post" class="insertForm">
+    <form action="insertarCasa.jsp" method="post" class="insertFormHouse">
 
-    <fieldset>
-        <legend>Añadir casa</legend>
+        <p>Casa</p>
 
         <label for="house-name">Nombre de la casa:</label>
         <input type="text" name="house-name" id="house-name" placeholder="Casa stark" required>
 
 
-        <input type="submit" value="Añadir casa">
-    </fieldset>
+        <input type="submit" class="boton-enviar" value="Enviar">
 
-</form>
+    </form>
+
+</div>
+
 
 </body>
 </html>

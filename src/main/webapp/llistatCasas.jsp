@@ -74,33 +74,35 @@
 <html>
 <head>
     <meta charset="UTF-16">
-    <title>Listado de casas</title>
-    <link rel="stylesheet" href="css/general.css">
+    <title>Casas</title>
+    <link rel="stylesheet" href="css/listHouse.css">
 </head>
+
+<body class="listar-cas">
+
 <header>
     <nav>
         <ul>
-            <li><a href="formCharacter.jsp">Añadir Characters/Casas</a></li>
+            <li><a href="formCharacter.jsp">Añadir Characters / Casas</a></li>
             <li><a href="llistatPersonajes.jsp">Listado de personajes</a></li>
             <li><a href="llistatCasas.jsp">Listado de Casas</a></li>
         </ul>
     </nav>
 
 </header>
-<body>
-
+<div class="tabla-casas">
 
 <table>
 
     <tr>
         <th>
-            Todas las casas existentes
+            Casas
         </th>
         <th>
-            Modificar dicha casa
+            Modificar
         </th>
         <th>
-            Eliminar dicha casa
+            Borrar
         </th>
     </tr>
     <%
@@ -108,8 +110,8 @@
             while (resultadoTotales.next()) {
                 out.println("<tr>");
                 out.println("<td>" + resultadoTotales.getString("name") + "</td>"); // Col 1
-                out.println("<td><form action=\"modificarCasa.jsp\" method=\"get\" ><button name=\"modificar\" value=\"" + resultadoTotales.getInt("id") + "\">Modificar</button></form></td>"); // Col2
-                out.println("<td><form action=\"llistatCasas.jsp\" method=\"get\"><button name=\"borrar\" value=\"" + resultadoTotales.getInt("id") + "\">Eliminar</button></form></td>"); // Col 3
+                out.println("<td><form action=\"modificarCasa.jsp\" method=\"get\" ><button id= \"boton-enviar\" name=\"modificar\" value=\"" + resultadoTotales.getInt("id") + "\">Modificar</button></form></td>"); // Col2
+                out.println("<td><form action=\"llistatCasas.jsp\" method=\"get\"><button id= \"boton-enviar\" name=\"borrar\" value=\"" + resultadoTotales.getInt("id") + "\">Eliminar</button></form></td>"); // Col 3
                 out.println("</tr>");
             }
         } catch (Exception e) {
@@ -119,7 +121,7 @@
 
 
 </table>
-
+</div>
 
 </body>
 </html>

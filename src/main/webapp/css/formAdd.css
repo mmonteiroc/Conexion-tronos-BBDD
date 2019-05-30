@@ -1,0 +1,166 @@
+@font-face {
+    font-family: "got";
+    src: url(font/got.ttf);
+}
+
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family:"got";
+    font-weight: bold;
+}
+
+body {
+
+    background-position: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+
+}
+
+.personajes {
+
+    background-image: url("img/formulario.jpg");
+    background-size: cover;
+}
+
+
+
+nav{
+
+    background-color: black;
+    flex-basis: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin:0;
+    align-items: center;
+    font-size: 10px;
+}
+
+nav li{
+    float: left;
+    margin: 20px;
+    list-style: none;
+    color: white;
+}
+
+nav li a:hover{
+    color: white;
+    border-bottom: 1px white solid;
+
+}
+
+
+nav li a {
+    text-decoration: none;
+    color: white;
+}
+
+.caja-form{
+
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.insertFormCharacter{
+
+    margin-top: 40px;
+    display: flex;
+    font-size: 30px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: 340px;
+    padding: 20px;
+    background-color: rgba(230, 230, 230, 0.7);
+    border:none;
+    margin-bottom: 40px;
+
+}
+
+input[type=text]{
+
+    border: none;
+    outline: none;
+    background: transparent;
+    border-bottom: 1px solid #000000;
+    margin-bottom: 10px;
+    width: 140px;
+    padding: 5px;
+
+}
+
+input:hover{
+
+    width: 180px;
+    transition: width 1s;
+
+}
+
+p{
+
+    margin-bottom: 25px;
+    font-weight: normal;
+
+}
+
+.insertFormHouse{
+
+    margin-bottom: 30px;
+    display: flex;
+    font-size: 30px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: 270px;
+    background-color: rgba(230, 230, 230, 0.7);
+    border:none;
+
+}
+
+select {
+
+    width: 150px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color:white;
+}
+
+.boton-enviar{
+
+    padding: 10px;
+    background: transparent;
+    width: 120px;
+    margin-top: 30px;
+    font-size: 10px;
+    color:white;
+    background: rgba(0, 0, 0, 0.8);
+    font-weight: bold;
+    border: 1px solid #000000;
+
+}
+
+label{
+
+    position: relative;
+    font-size: 12px;
+    margin-bottom:15px ;
+
+}
+
+select {
+
+    font-size: 10px;
+}
