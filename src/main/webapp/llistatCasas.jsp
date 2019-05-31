@@ -105,7 +105,7 @@
 <header>
     <nav>
         <ul>
-            <li><a href="formCharacter.jsp">Añadir Characters/Casas</a></li>
+            <li><a href="formCharacter.jsp">ADD Characters and Houses</a></li>
             <li><a href="llistatPersonajes.jsp">Listado de personajes</a></li>
             <li><a href="llistatCasas.jsp">Listado de Casas</a></li>
         </ul>
@@ -170,11 +170,12 @@
     } finally {
         try {
 
+
             if (resultadoTotales != null) resultadoTotales.close();
             if (statementTotales != null) statementTotales.close();
             //if (statementBusqueda!=null) statementBusqueda.close();
             if (statementBorrar != null) statementBorrar.close();
-            if (connection != null) connection.close();
+            //if (connection != null) connection.close();
 
         } catch (SQLException e) {
             e.printStackTrace();

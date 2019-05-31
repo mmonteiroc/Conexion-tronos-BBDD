@@ -73,7 +73,6 @@
         connection = pool.getConnection();
         statement = connection.createStatement();
 
-
         // si recibimos un id de un personaje
         idBorrar = request.getParameter("borrar");
         if (idBorrar != null) {
@@ -107,7 +106,7 @@
 <header>
     <nav>
         <ul>
-            <li><a href="formCharacter.jsp">Añadir Characters/Casas</a></li>
+            <li><a href="formCharacter.jsp">ADD Characters and Houses</a></li>
             <li><a href="llistatPersonajes.jsp">Listado de personajes</a></li>
             <li><a href="llistatCasas.jsp">Listado de Casas</a></li>
         </ul>

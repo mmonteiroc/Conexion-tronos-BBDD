@@ -37,6 +37,7 @@
         pool.setPassword(PASSWORD_BBDD);
         pool.setUrl(HOST_BBDD);
 
+
         // Parametros
         pool.setMaxIdle(10);
         pool.setMinIdle(1);

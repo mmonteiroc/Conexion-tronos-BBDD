@@ -46,7 +46,6 @@
         pool.setDefaultQueryTimeout(15);
         pool.setMaxWaitMillis(2000);
 
-
     } catch (Exception e) {
         e.printStackTrace();
     }
@@ -74,7 +73,7 @@
 <header>
     <nav>
         <ul>
-            <li><a href="formCharacter.jsp">Añadir Characters / Casas</a></li>
+            <li><a href="formCharacter.jsp">ADD Characters and Houses</a></li>
             <li><a href="llistatPersonajes.jsp">Listado de personajes</a></li>
             <li><a href="llistatCasas.jsp">Listado de Casas</a></li>
         </ul>
