@@ -142,7 +142,7 @@
         <%
             try {
                 while (resultSet.next()) {
-                    out.println("<tr>");
+                    out.println("<tr class=\"filas\">");
                     out.println("<td>" + resultSet.getString("nombre") + "</td>"); // Col 1
 
                     if (resultSet.getString("casa") == null) {

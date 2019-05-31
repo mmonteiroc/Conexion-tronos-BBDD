@@ -58,4 +58,3 @@ VALUES (73, 'Friend Of A Friend v2', 62),
 CREATE USER 'gotAdmin'@'localhost' IDENTIFIED BY 'adminGot';
 GRANT CREATE, UPDATE, SELECT, INSERT, LOCK TABLES ON GOT.* TO 'gotAdmin'@'localhost';
 FLUSH PRIVILEGES;
-

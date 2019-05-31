@@ -145,7 +145,7 @@
         <%
             try {
                 while (resultadoTotales.next()) {
-                    out.println("<tr>");
+                    out.println("<tr class=\"filas\">");
                     out.println("<td>" + resultadoTotales.getString("name") + "</td>"); // Col 1
                     out.println("<td><form action=\"modificarCasa.jsp\" method=\"get\" ><button id=\"boton-enviar\" name=\"modificar\" value=\"" + resultadoTotales.getInt("id") + "\">Modificar</button></form></td>"); // Col2
                     out.println("<td><form action=\"llistatCasas.jsp\" method=\"get\"><button id=\"boton-enviar\" name=\"borrar\" value=\"" + resultadoTotales.getInt("id") + "\">Eliminar</button></form></td>"); // Col 3
@@ -170,12 +170,10 @@
     } finally {
         try {
 
-
             if (resultadoTotales != null) resultadoTotales.close();
             if (statementTotales != null) statementTotales.close();
-            //if (statementBusqueda!=null) statementBusqueda.close();
             if (statementBorrar != null) statementBorrar.close();
-            //if (connection != null) connection.close();
+            if (connection != null) connection.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
