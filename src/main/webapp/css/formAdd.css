@@ -21,7 +21,6 @@ body {
     flex-direction: column;
     align-items: center;
 
-
 }
 
 .personajes {
@@ -32,15 +31,16 @@ body {
 
 
 
+
 nav{
 
     background-color: black;
-    flex-basis: 100%;
     display: flex;
     justify-content: space-between;
     margin:0;
     align-items: center;
     font-size: 10px;
+    width: 100%;
 }
 
 nav li{
