@@ -64,6 +64,8 @@
 
         statement = connection.createStatement();
 
+
+        // Personaje a modificar
         idPersonaje = Integer.parseInt(request.getParameter("modificar"));
 
         // Sacamos informacion del personaje a modificar

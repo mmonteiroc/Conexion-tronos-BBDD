@@ -1,5 +1,6 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="org.apache.commons.dbcp2.BasicDataSource" %>
+<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: mmonteiro
@@ -38,6 +39,7 @@
 %>
 
 <%
+
     try {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
 
