@@ -13,7 +13,10 @@ public interface DAO<T extends Entity> {
 
     List<T> findAll();
 
-    void delete(Integer id);
+    void delete(T entity);
 
+    void update(T entity);
+
+    void create(T entity);
 
 }

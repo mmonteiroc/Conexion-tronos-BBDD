@@ -7,9 +7,5 @@ package com.esliceu.bbdd;
  * Paquete com.esliceu.bbdd
  * Proyecto got
  */
-public class Entity {
-
-    Integer id = null;
-
-
+public class House extends Entity {
 }
