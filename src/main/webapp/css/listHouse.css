@@ -15,6 +15,7 @@
 body {
 
 
+    background-color: red;
     background-position: center;
     width: 100%;
     display: flex;
@@ -109,7 +110,6 @@ table {
 
     width: 90%;
     border-collapse: collapse;
-
     color: black;
 }
 
@@ -133,7 +133,7 @@ table, th, td {
 }
 
 
-tr:hover {
+tr.filas:hover {
 
     background: rgba(0, 0, 0, 0.5);
     color: white;
