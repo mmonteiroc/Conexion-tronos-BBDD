@@ -146,7 +146,21 @@ public class CharacterDAO implements DAO<Character> {
 
     @Override
     public void update(Character entity) {
-
+        //update characters set name="", allegianceTo= where id=
+        try {
+            establishConnection();
+            statement = connection.createStatement();
+            statement.executeUpdate("update characters set name=\"" + entity.getName() + "\", allegianceTo=" + entity.getAllegianceTo().getId() + " where id=" + entity.getID());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) connection.close();
+                if (statement != null) statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

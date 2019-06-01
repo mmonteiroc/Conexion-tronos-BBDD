@@ -3,6 +3,8 @@
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="org.apache.commons.dbcp2.BasicDataSource" %>
+<%@ page import="com.esliceu.bbdd.*" %>
+<%@ page import="com.esliceu.bbdd.Character" %>
 <%--
   Created by IntelliJ IDEA.
   User: mmonteiro
@@ -13,74 +15,26 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%!
-    // Atributos que recibiremos por post
-    Integer personajeModificarID = null;
-    String nombrePersonaje = null;
-    Integer casaPersonaje = null;
-
-    // Atributos para el update
-    Connection connection = null;
-    Statement statementUpdate = null;
-    String queryUpdate = null;
-
-
-    // BBDD -- Variables
-    private final String HOST_BBDD = "jdbc:mysql://localhost:3306";
-    private final String NAME_BBDD = "GOT";
-    private final String USER_BBDD = "gotAdmin";
-    private final String PASSWORD_BBDD = "adminGot";
-    // Pool
-    final BasicDataSource pool = new BasicDataSource();
-
-
+    DAO<Character> dao = new CharacterDAO();
+    DAO<House> daoHouse = new HouseDAO();
 %>
 
 
 <%
-    try {
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-
-        // Conexion
-        pool.setDefaultCatalog(NAME_BBDD);
-        pool.setUsername(USER_BBDD);
-        pool.setPassword(PASSWORD_BBDD);
-        pool.setUrl(HOST_BBDD);
-
-        // Parametros
-        pool.setMaxIdle(10);
-        pool.setMinIdle(1);
-        pool.setMaxTotal(5);
-        pool.setValidationQuery("select 1");
-        pool.setValidationQueryTimeout(1);
-        pool.setDefaultQueryTimeout(15);
-        pool.setMaxWaitMillis(2000);
-
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-
-    try {
-
-        connection = pool.getConnection();
-
-        statementUpdate = connection.createStatement();
-
-
-        personajeModificarID = Integer.parseInt(request.getParameter("personajeModificar"));
-        nombrePersonaje = request.getParameter("nombrePersonaje");
+    Character newpersonaje = null;
+    int personajeModificar = Integer.parseInt(request.getParameter("personajeModificar"));
 
         if (request.getParameter("casaPersonaje").equals("null")) {
             // Personaje sin casa
-            queryUpdate = "update characters set name=\"" + nombrePersonaje + "\",allegianceTo=" + null + " where id=" + personajeModificarID;
-
+            newpersonaje = new Character(personajeModificar, request.getParameter("nombrePersonaje"));
         } else {
             // Personaje con casa
-            casaPersonaje = Integer.parseInt(request.getParameter("casaPersonaje"));
-            queryUpdate = "update characters set name=\"" + nombrePersonaje + "\",allegianceTo=" + casaPersonaje + " where id=" + personajeModificarID;
+            int casaPersonaje = Integer.parseInt(request.getParameter("casaPersonaje"));
+            House house = daoHouse.findById(casaPersonaje);
+            newpersonaje = new Character(personajeModificar, request.getParameter("nombrePersonaje"), house);
         }
 
-        statementUpdate.executeUpdate(queryUpdate);
+    dao.update(newpersonaje);
 
 %>
 <html>
@@ -99,15 +53,3 @@
 </body>
 </html>
 
-<%
-    } catch (Exception e) {
-        e.printStackTrace();
-    } finally {
-        try {
-            if (statementUpdate != null) statementUpdate.close();
-            if (connection != null) connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-%>

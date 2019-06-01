@@ -22,6 +22,9 @@ public class Character extends Entity {
         this.allegianceTo = allegianceTo;
     }
 
+    public Character(String name) {
+        this.name = name;
+    }
     public Character(Integer id, String name) {
         this.id = id;
         this.name = name;
