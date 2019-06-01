@@ -1,5 +1,9 @@
 <%@ page import="java.sql.*" %>
-<%@ page import="org.apache.commons.dbcp2.BasicDataSource" %><%--
+<%@ page import="org.apache.commons.dbcp2.BasicDataSource" %>
+<%@ page import="com.esliceu.bbdd.DAO" %>
+<%@ page import="com.esliceu.bbdd.House" %>
+<%@ page import="java.util.LinkedList" %>
+<%@ page import="com.esliceu.bbdd.HouseDAO" %><%--
   Created by IntelliJ IDEA.
   User: mmonteiro
   Date: 27/05/19
@@ -8,90 +12,17 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%!
-
-    Connection connection = null;
-    Statement statementTotales = null;
-    ResultSet resultadoTotales = null;
-    String queryCasas = null;
-
-    // Si recibimos parametros por get para borrar las casas
-    String idBorrar = null;
-    String queryBorrar = null;
-    Statement statementBorrar = null;
-
-    // buscar casas
-    String nameBusqueda = null;
-
-
-    // BBDD -- Variables
-    private final String HOST_BBDD = "jdbc:mysql://localhost:3306";
-    private final String NAME_BBDD = "GOT";
-    private final String USER_BBDD = "gotAdmin";
-    private final String PASSWORD_BBDD = "adminGot";
-    // Pool
-    final BasicDataSource pool = new BasicDataSource();
+    DAO<House> dao = null;
+    LinkedList<House> casas = null;
 %>
 
 
 <%
-    try {
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        // Conexion
-        pool.setDefaultCatalog(NAME_BBDD);
-        pool.setUsername(USER_BBDD);
-        pool.setPassword(PASSWORD_BBDD);
-        pool.setUrl(HOST_BBDD);
-
-        // Parametros
-        pool.setMaxIdle(10);
-        pool.setMinIdle(1);
-        pool.setMaxTotal(5);
-        pool.setValidationQuery("select 1");
-        pool.setValidationQueryTimeout(1);
-        pool.setDefaultQueryTimeout(15);
-        pool.setMaxWaitMillis(2000);
-
-    } catch (Exception e) {
-        e.printStackTrace();
+    dao = new HouseDAO();
+    if (request.getParameter("borrar") != null) {
+        dao.delete(dao.findById(Integer.parseInt(request.getParameter("borrar"))));
     }
-
-
-    try {
-        /*connection = DriverManager.getConnection("jdbc:mysql://"
-                + HOST_BBDD + ":"
-                + PORT_BBDD.toString() + "/"
-                + NAME_BBDD + "?user="
-                + USER_BBDD + "&password="
-                + PASSWORD_BBDD);*/
-
-        connection = pool.getConnection();
-
-        idBorrar = request.getParameter("borrar");
-        if (idBorrar != null) {
-            statementBorrar = connection.createStatement();
-            Statement safeUpdates0 = connection.createStatement();
-            Statement safeUpdates1 = connection.createStatement();
-            Statement borrarReferencias = connection.createStatement();
-            safeUpdates0.execute("SET SQL_SAFE_UPDATES = 0");
-            borrarReferencias.executeUpdate("update characters set allegianceTo = null where allegianceTo=" + idBorrar);
-            safeUpdates1.execute("SET SQL_SAFE_UPDATES = 1");
-
-            queryBorrar = "delete from house where id=" + idBorrar;
-            statementBorrar.executeUpdate(queryBorrar);
-        }
-
-
-        // queryCasas para sacar las casas
-        statementTotales = connection.createStatement();
-        nameBusqueda = request.getParameter("search");
-        if (nameBusqueda == null) {
-            queryCasas = "select name,id from house order by name";
-        } else {
-            queryCasas = "select name,id from house where name like '%" + nameBusqueda + "%' order by name";
-        }
-        resultadoTotales = statementTotales.executeQuery(queryCasas);
-
-
+    casas = dao.findAll();
 %>
 
 
@@ -117,13 +48,7 @@
 
 <form action="llistatCasas.jsp" method="get" class="probando">
     <label for="search">Buscar casa</label>
-    <input type="text" name="search" id="search" placeholder="Casa aria" value="<%
-
-        if (nameBusqueda!=null){
-            out.println(nameBusqueda);
-        }
-
-    %>">
+    <input type="text" name="search" id="search" placeholder="Casa aria" value="">
     <input type="submit" id="boton-enviar" value="Buscar">
 </form>
 
@@ -144,11 +69,11 @@
         </tr>
         <%
             try {
-                while (resultadoTotales.next()) {
+                for (House casa : casas) {
                     out.println("<tr class=\"filas\">");
-                    out.println("<td>" + resultadoTotales.getString("name") + "</td>"); // Col 1
-                    out.println("<td><form action=\"modificarCasa.jsp\" method=\"get\" ><button id=\"boton-enviar\" name=\"modificar\" value=\"" + resultadoTotales.getInt("id") + "\">Modificar</button></form></td>"); // Col2
-                    out.println("<td><form action=\"llistatCasas.jsp\" method=\"get\"><button id=\"boton-enviar\" name=\"borrar\" value=\"" + resultadoTotales.getInt("id") + "\">Eliminar</button></form></td>"); // Col 3
+                    out.println("<td>" + casa.getName() + "</td>"); // Col 1
+                    out.println("<td><form action=\"modificarCasa.jsp\" method=\"get\" ><button id=\"boton-enviar\" name=\"modificar\" value=\"" + casa.getId() + "\">Modificar</button></form></td>"); // Col2
+                    out.println("<td><form action=\"llistatCasas.jsp\" method=\"get\"><button id=\"boton-enviar\" name=\"borrar\" value=\"" + casa.getId() + "\">Eliminar</button></form></td>"); // Col 3
                     out.println("</tr>");
                 }
             } catch (Exception e) {
@@ -162,21 +87,3 @@
 
 </body>
 </html>
-
-
-<%
-    } catch (Exception e) {
-        e.printStackTrace();
-    } finally {
-        try {
-
-            if (resultadoTotales != null) resultadoTotales.close();
-            if (statementTotales != null) statementTotales.close();
-            if (statementBorrar != null) statementBorrar.close();
-            if (connection != null) connection.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-%>

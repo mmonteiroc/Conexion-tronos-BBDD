@@ -9,15 +9,22 @@ package com.esliceu.bbdd;
  */
 public class Character extends Entity {
 
-    Integer id = null;
-    String name = null;
-    House allegianceTo = null;
+    private Integer id = null;
+    private String name = null;
+    private House allegianceTo = null;
 
 
     // Constructor
+
+
     public Character(String name, House allegianceTo) {
         this.name = name;
         this.allegianceTo = allegianceTo;
+    }
+
+    public Character(Integer id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public Character(Integer id, String name, House allegianceTo) {
@@ -27,4 +34,16 @@ public class Character extends Entity {
     }
 
 
+    // Getters
+    public String getName() {
+        return this.name;
+    }
+
+    public Integer getID() {
+        return this.id;
+    }
+
+    public House getAllegianceTo() {
+        return this.allegianceTo;
+    }
 }
