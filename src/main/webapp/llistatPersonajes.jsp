@@ -81,8 +81,8 @@
                     } else {
                         out.println("<td>" + carracter.getAllegianceTo().getName() + "</td>");
                     }
-                    out.println("<td><form action=\"modificarPersonaje.jsp\" method=\"get\" ><button id= \"boton-enviar\" name=\"modificar\" value=\"" + carracter.getID() + "\">Modificar</button></form></td>");
-                    out.println("<td><form action=\"llistatPersonajes.jsp\" method=\"get\"><button id= \"boton-enviar\" name=\"borrar\" value=\"" + carracter.getID() + "\">Eliminar</button></form></td>"); // Col 3
+                    out.println("<td><form action=\"modificarPersonaje.jsp\" method=\"get\" ><button id= \"boton-enviar\" name=\"modificar\" value=\"" + carracter.getId() + "\">Modificar</button></form></td>");
+                    out.println("<td><form action=\"llistatPersonajes.jsp\" method=\"get\"><button id= \"boton-enviar\" name=\"borrar\" value=\"" + carracter.getId() + "\">Eliminar</button></form></td>"); // Col 3
                     out.println("</tr>");
                 }
 

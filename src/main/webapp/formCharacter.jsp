@@ -54,7 +54,7 @@
 
         connection = pool.getConnection();
 
-        // Sacamos las casas para el combo box
+        // Sacamos las totalCasas para el combo box
         statement = connection.createStatement();
         sentencia = "select name, id from house order by name";
         resultado = statement.executeQuery(sentencia);

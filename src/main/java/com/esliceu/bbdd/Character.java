@@ -42,7 +42,7 @@ public class Character extends Entity {
         return this.name;
     }
 
-    public Integer getID() {
+    public Integer getId() {
         return this.id;
     }
 

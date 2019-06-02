@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Creado por: mmonteiro
@@ -125,7 +124,7 @@ public class CharacterDAO implements DAO<Character> {
         try {
             establishConnection();
             statement = connection.createStatement();
-            statement.executeUpdate("delete from characters where id=" + entity.getID());
+            statement.executeUpdate("delete from characters where id=" + entity.getId());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -150,7 +149,7 @@ public class CharacterDAO implements DAO<Character> {
         try {
             establishConnection();
             statement = connection.createStatement();
-            statement.executeUpdate("update characters set name=\"" + entity.getName() + "\", allegianceTo=" + entity.getAllegianceTo().getId() + " where id=" + entity.getID());
+            statement.executeUpdate("update characters set name=\"" + entity.getName() + "\", allegianceTo=" + entity.getAllegianceTo().getId() + " where id=" + entity.getId());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
