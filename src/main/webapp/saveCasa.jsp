@@ -24,8 +24,8 @@
 
 
 <%
-        casaModificarId = Integer.parseInt(request.getParameter("casaModificar"));
-        nombreCasaNew = request.getParameter("newNameHouse");
+    casaModificarId = Integer.parseInt(request.getParameter("casaModificar"));
+    nombreCasaNew = request.getParameter("newNameHouse");
     casaModificar = new House(casaModificarId, nombreCasaNew);
     dao.update(casaModificar);
 %>

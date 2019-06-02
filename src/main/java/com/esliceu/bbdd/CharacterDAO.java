@@ -167,7 +167,8 @@ public class CharacterDAO implements DAO<Character> {
         try {
             establishConnection();
             statement = connection.createStatement();
-            statement.executeUpdate("insert into characters (name,allegianceTo) values (" + entity.getName() + "," + entity.getAllegianceTo() + ")");
+            Integer alianza = (entity.getAllegianceTo() != null) ? entity.getAllegianceTo().getId() : null;
+            statement.executeUpdate("insert into characters (name,allegianceTo) values (\"" + entity.getName() + "\"," + alianza + ")");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

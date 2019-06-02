@@ -1,5 +1,7 @@
-<%@ page import="java.sql.*" %>
-<%@ page import="org.apache.commons.dbcp2.BasicDataSource" %><%--
+<%@ page import="com.esliceu.bbdd.DAO" %>
+<%@ page import="com.esliceu.bbdd.House" %>
+<%@ page import="com.esliceu.bbdd.HouseDAO" %>
+<%@ page import="java.util.LinkedList" %><%--
   Created by IntelliJ IDEA.
   User: mmonteiro
   Date: 24/05/19
@@ -8,58 +10,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%!
-    private Connection connection = null;
-    private Statement statement = null;
-    private ResultSet resultado = null;
-    private String sentencia = null;
-
-
-    // BBDD -- Variables
-    private final String HOST_BBDD = "jdbc:mysql://localhost:3306";
-    private final String NAME_BBDD = "GOT";
-    private final String USER_BBDD = "gotAdmin";
-    private final String PASSWORD_BBDD = "adminGot";
-    // Pool
-    final BasicDataSource pool = new BasicDataSource();
-
-
-
+    DAO<House> dao = new HouseDAO();
+    LinkedList<House> listaCasasTotal = null;
 %>
 
 <%
-
-    try {
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-
-        // Conexion
-        pool.setDefaultCatalog(NAME_BBDD);
-        pool.setUsername(USER_BBDD);
-        pool.setPassword(PASSWORD_BBDD);
-        pool.setUrl(HOST_BBDD);
-
-        // Parametros
-        pool.setMaxIdle(10);
-        pool.setMinIdle(1);
-        pool.setMaxTotal(5);
-        pool.setValidationQuery("select 1");
-        pool.setValidationQueryTimeout(1);
-        pool.setDefaultQueryTimeout(15);
-        pool.setMaxWaitMillis(2000);
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-
-    try {
-
-        connection = pool.getConnection();
-
-        // Sacamos las totalCasas para el combo box
-        statement = connection.createStatement();
-        sentencia = "select name, id from house order by name";
-        resultado = statement.executeQuery(sentencia);
-
-
+    listaCasasTotal = dao.findAll();
 %>
 
 
@@ -93,12 +49,8 @@
         <select name="casa" class="select-selected" id="casa">
             <option value="null">Sin casa</option>
             <%
-                try {
-                    while (resultado.next()) {
-                        out.println("<option value=\"" + resultado.getInt("id") + "\">" + resultado.getString("name") + "</option>");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                for (House casa : listaCasasTotal) {
+                    out.println("<option value=\"" + casa.getId() + "\">" + casa.getName() + "</option>");
                 }
             %>
 
@@ -125,16 +77,3 @@
 </body>
 </html>
 
-<%
-    } catch (Exception e) {
-        e.printStackTrace();
-    } finally {
-        try {
-            if (resultado != null) resultado.close();
-            if (statement != null) statement.close();
-            if (connection != null) connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-%>

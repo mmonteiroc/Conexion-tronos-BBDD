@@ -1,6 +1,8 @@
 <%@ page import="jdk.nashorn.internal.runtime.ECMAException" %>
 <%@ page import="java.sql.*" %>
-<%@ page import="org.apache.commons.dbcp2.BasicDataSource" %><%--
+<%@ page import="org.apache.commons.dbcp2.BasicDataSource" %>
+<%@ page import="com.esliceu.bbdd.*" %>
+<%@ page import="com.esliceu.bbdd.Character" %><%--
   Created by IntelliJ IDEA.
   User: mmonteiro
   Date: 24/05/19
@@ -12,65 +14,27 @@
 <%!
     String name = "";
     Integer idCasa = null;
-    Connection connection = null;
-    Statement statement = null;
-    String sentencia = "";
-
-
-    // BBDD -- Variables
-    private final String HOST_BBDD = "jdbc:mysql://localhost:3306";
-    private final String NAME_BBDD = "GOT";
-    private final String USER_BBDD = "gotAdmin";
-    private final String PASSWORD_BBDD = "adminGot";
-    // Pool
-    final BasicDataSource pool = new BasicDataSource();
+    DAO<House> daoCasa = new HouseDAO();
+    DAO<Character> daoCharacter = new CharacterDAO();
+    Character personaje = null;
+    House casa = null;
 %>
 
 <%
 
 
-    try {
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        // Conexion
-        pool.setDefaultCatalog(NAME_BBDD);
-        pool.setUsername(USER_BBDD);
-        pool.setPassword(PASSWORD_BBDD);
-        pool.setUrl(HOST_BBDD);
-
-
-        // Parametros
-        pool.setMaxIdle(10);
-        pool.setMinIdle(1);
-        pool.setMaxTotal(5);
-        pool.setValidationQuery("select 1");
-        pool.setValidationQueryTimeout(1);
-        pool.setDefaultQueryTimeout(15);
-        pool.setMaxWaitMillis(2000);
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
     name = request.getParameter("name");
-    try {
-        /*connection = DriverManager.getConnection("jdbc:mysql://"
-                + HOST_BBDD + ":"
-                + PORT_BBDD.toString() + "/"
-                + NAME_BBDD + "?user="
-                + USER_BBDD + "&password="
-                + PASSWORD_BBDD);*/
 
-        connection = pool.getConnection();
-
-
-        statement = connection.createStatement();
-        if (request.getParameter("casa").equals("null")) {
-            sentencia = "insert into characters (name,allegianceTo) values (\"" + name + "\",NULL)";
-        } else {
-            idCasa = Integer.parseInt(request.getParameter("casa"));
-            sentencia = "insert into characters (name,allegianceTo) values (\"" + name + "\"," + idCasa + ")";
-        }
-        statement.execute(sentencia);
-        // resultSet = statement.executeQuery("select 1");
+    if (request.getParameter("casa").equals("null")) {
+        // Sin casa
+        personaje = new Character(name);
+    } else {
+        // con casa
+        idCasa = Integer.parseInt(request.getParameter("casa"));
+        casa = daoCasa.findById(idCasa);
+        personaje = new Character(name, casa);
+    }
+    daoCharacter.create(personaje);
 %>
 
 <!DOCTYPE html>
@@ -90,16 +54,3 @@
 </body>
 </html>
 
-
-<%
-    } catch (Exception e) {
-        e.printStackTrace();
-    } finally {
-        try {
-            if (statement != null) statement.close();
-            if (connection != null) connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-%>

@@ -165,7 +165,20 @@ public class HouseDAO implements DAO<House> {
 
     @Override
     public void create(House entity) {
-
+        try {
+            establishConnection();
+            statement = connection.createStatement();
+            statement.executeUpdate("insert into house(name) values ('" + entity.getName() + "')");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) connection.close();
+                if (statement != null) statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
