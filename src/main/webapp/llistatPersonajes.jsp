@@ -27,7 +27,7 @@
             dao.delete(dao.findById(Integer.parseInt(request.getParameter("borrar"))));
         }
 
-        caracteres = (LinkedList<Character>) dao.findAll();
+        caracteres = dao.findAll();
 
 %>
 

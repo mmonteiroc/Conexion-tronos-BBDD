@@ -32,6 +32,7 @@ public class CharacterDAO implements DAO<Character> {
 
     public CharacterDAO() {
         try {
+
             Class.forName("com.mysql.jdbc.Driver").newInstance();
         } catch (InstantiationException e) {
             e.printStackTrace();

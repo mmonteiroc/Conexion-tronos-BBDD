@@ -9,7 +9,10 @@ package com.esliceu.bbdd;
  */
 public class Entity {
 
-    Integer id = null;
 
+    Entity() {
+    }
+
+    ;
 
 }
