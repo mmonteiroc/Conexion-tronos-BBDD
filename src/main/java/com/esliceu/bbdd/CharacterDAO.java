@@ -150,7 +150,11 @@ public class CharacterDAO implements DAO<Character> {
         try {
             establishConnection();
             statement = connection.createStatement();
-            statement.executeUpdate("update characters set name=\"" + entity.getName() + "\", allegianceTo=" + entity.getAllegianceTo().getId() + " where id=" + entity.getId());
+            if (entity.getAllegianceTo() == null) {
+                statement.executeUpdate("update characters set name=\"" + entity.getName() + "\", allegianceTo=" + null + " where id=" + entity.getId());
+            } else {
+                statement.executeUpdate("update characters set name=\"" + entity.getName() + "\", allegianceTo=" + entity.getAllegianceTo().getId() + " where id=" + entity.getId());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

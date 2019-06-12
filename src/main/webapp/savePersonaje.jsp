@@ -22,16 +22,16 @@
 
 <%
     Character newpersonaje;
-    int personajeModificar = Integer.parseInt(request.getParameter("personajeModificar"));
+    int idPersonajeModificar = Integer.parseInt(request.getParameter("personajeModificar"));
 
     if (request.getParameter("casaPersonaje").equals("null")) {
         // Personaje sin casa
-        newpersonaje = new Character(personajeModificar, request.getParameter("nombrePersonaje"));
+        newpersonaje = new Character(idPersonajeModificar, request.getParameter("nombrePersonaje"));
     } else {
         // Personaje con casa
         int casaPersonaje = Integer.parseInt(request.getParameter("casaPersonaje"));
         House house = daoHouse.findById(casaPersonaje);
-        newpersonaje = new Character(personajeModificar, request.getParameter("nombrePersonaje"), house);
+        newpersonaje = new Character(idPersonajeModificar, request.getParameter("nombrePersonaje"), house);
     }
 
     dao.update(newpersonaje);
