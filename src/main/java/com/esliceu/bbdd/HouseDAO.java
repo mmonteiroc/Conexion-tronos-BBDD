@@ -22,12 +22,6 @@ public class HouseDAO implements DAO<House> {
     Connection connection = null;
     // Pool
     final BasicDataSource pool = new BasicDataSource();
-    // BBDD -- Variables
-    private final String HOST_BBDD = "jdbc:mysql://localhost:3306";
-    private final String NAME_BBDD = "GOT";
-    private final String USER_BBDD = "gotAdmin";
-    private final String PASSWORD_BBDD = "adminGot";
-
 
     public HouseDAO() {
         try {
@@ -40,10 +34,10 @@ public class HouseDAO implements DAO<House> {
             e.printStackTrace();
         }
         // Conexion
-        pool.setDefaultCatalog(NAME_BBDD);
-        pool.setUsername(USER_BBDD);
-        pool.setPassword(PASSWORD_BBDD);
-        pool.setUrl(HOST_BBDD);
+        pool.setDefaultCatalog(Constantes.NAME_BBDD);
+        pool.setUsername(Constantes.USER_BBDD);
+        pool.setPassword(Constantes.PASSWORD_BBDD);
+        pool.setUrl(Constantes.HOST_BBDD);
 
         // Parametros
         pool.setMaxIdle(10);

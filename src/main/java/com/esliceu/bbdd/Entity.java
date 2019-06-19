@@ -8,11 +8,6 @@ package com.esliceu.bbdd;
  * Proyecto got
  */
 public class Entity {
-
-
     Entity() {
     }
-
-    ;
-
 }
