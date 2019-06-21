@@ -5,6 +5,7 @@
 - Java
 - Html
 - Css
+- MySQL
 
 
 ## Diseño de aplicacion
